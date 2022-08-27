@@ -39,7 +39,6 @@ function main() {
             groups.push([student, peopleWhoCanWork[rn]]);
             students.splice(students.indexOf(peopleWhoCanWork[rn]), 1);
         });
-
         
         db.ciclos.terceiro = groups
         let resultscreen = document.getElementById('result-screen');
