@@ -1,136 +1,51 @@
-const db = {
-    students: [
-        "Laura", 
-        "Pedro",
-        "João",
-        "Vinicius",
-        "Carlos",
-        "Maria",
-        "Leonardo",
-        "Ana",
-        "Daniela",
-        "Marcos",
-        "Wesley",
-        "Luiza",
-        "Daiane",
-        "Felipe",
-        "Teodoro",
-        "Helena",
-        "Natalia",
-        "Beatriz",
-        "Eduardo",
-        "Caio"
-    ],
-    cycles: {
-        first: [
-            [
-                "Laura", 
-                "Pedro", 
-                "João",
-                "Vinicius"
-            ],
-            [
-                "Carlos", 
-                "Maria",
-                "Leonardo", 
-                "Ana"
-            ],
-            [
-                "Daniela",
-                "Marcos",
-                "Wesley",
-                "Luiza"
-            ],
-            [
-                "Daiane",
-                "Felipe",
-                "Teodoro",
-                "Helena"
-            ],
-            [
-                "Natalia",
-                "Beatriz",
-                "Eduardo",
-                "Caio"
-            ]
-        ],
-        second : [
-            [
-                "Teodoro",
-                "Daiane",
-                "Luiza"
-            ],
-            [
-                "Carlos",
-                "João",
-                "Helena"
-            ],
-            [
-                "Daniela",
-                "Pedro",
-                "Caio"
-            ],
-            [
-                "Leonardo",
-                "Maria",
-                "Laura"
-            ],
-            [
-                "Beatriz",
-                "Marcos",
-                "Vinicius"
-            ],
-            [
-                "Natalia",
-                "Felipe",
-                "Eduardo"
-            ],
-            [
-                "Ana",
-                "Wesley"
-            ]
-        ]
+function getPeopleWhoCanWork(student, cycles) {
+    let allow = [];
+
+    for (let i = 0; i < cycles.length; i++) {
+        if(!cycles[i].includes(student)) {
+            allow.push(cycles[i]);
+            allow = [...new Set(allow.flat())]
+        }
     }
+
+    return allow
 }
 
-// ana != wesley, carlos, maria, leonardo
-// laura != leonardo, maria, pedro, joão, vinicius
-// pedro != vinicius, joão, caio, daniela, laura
-
-// comparar os ciclos anteriores e montar um novo array com a exeções
-
 function main() {
-    var first = db.cycles.first;
-    var second = db.cycles.second;
+    fetch('./api.json')
+    .then( res => res.json())
+    .then(data => {
+        const db = data;
 
-    var newAr = first.concat(second)
-    var exe = [];
+        let cycles = Object.values(db.ciclos).flat();
 
-    var thirdCycle = db.students;
-    var third = db.cycles.third = [];
+        let groups = [];
+        let students = db.alunos;
 
-    newAr.forEach(group => {
-        if(group.includes('Ana')) {
-            exe.push(group);
-        }
-    });
-
-    var res = ([...new Set(exe.flat())]);
-    var pod = [];
-
-    for (let i = 0; i < thirdCycle.length; i++) {
-        if(!res.includes(thirdCycle[i])) {
-            pod.push([thirdCycle[i]])
-        }
-
-    }
-
-    pos = Math.floor(Math.random() * pod.length)
-    third.push('Ana', pod[pos])
+        students.forEach(student => {
+            let peopleWhoCanWork = getPeopleWhoCanWork(student, cycles)
     
-    console.log("Não pode com esses: ",res);
-    console.log("Pode com esses: ",pod.flat());
-    console.log("Dupla com um que pode: ",third.flat());
+            if (groups.length > 0) {
+                let groupsConcatenatedRecursive = groups.flat()
+                for (let i = 0; i < groupsConcatenatedRecursive.length; i++) {
+                    if(peopleWhoCanWork.includes(groupsConcatenatedRecursive[i])) {
+                        peopleWhoCanWork.splice(peopleWhoCanWork.indexOf(groupsConcatenatedRecursive[i]), 1)
+                    }
+                }
+            }
+    
+            let rn = Math.floor(Math.random() * peopleWhoCanWork.length);
+    
+            groups.push([student, peopleWhoCanWork[rn]]);
+            students.splice(students.indexOf(peopleWhoCanWork[rn]), 1);
+        });
+
+        
+        db.ciclos.terceiro = groups
+        let resultscreen = document.getElementById('result-screen');
+        resultscreen.innerHTML = JSON.stringify(db);
+    })
+
 }
 
 main();
