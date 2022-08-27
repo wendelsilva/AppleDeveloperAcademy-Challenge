@@ -12,7 +12,10 @@ function getPeopleWhoCanWork(student, cycles) {
 }
 
 function main() {
-    fetch('./api.json')
+    fetch('./api.json', {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      })
     .then( res => res.json())
     .then(data => {
         const db = data;
