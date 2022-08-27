@@ -236,7 +236,7 @@ function main() {
 
 main();
 ```
-### Após desenvolver e testar o programa julgo ele uma boa solução com 99% de eficácia pois além de solucionar o problema em questão ela é uma solução relativamente simples e perfomática dentro do espaço testado no entanto ela possui algumas limitações como no momento só estar gerando duplas então pensando em escalar ela poderia gerar não só duplas como trios, quartetos e etc... e talvez uma outra limitação que possa existir é em um ambiente de teste maior ela perder em perfomance devido a quantidade de iterações que existe no programa.
+Após desenvolver e testar o programa julgo ele uma boa solução com 99% de eficácia pois além de solucionar o problema em questão ela é uma solução relativamente simples e perfomática dentro do espaço testado no entanto ela possui algumas limitações como no momento só estar gerando duplas então pensando em escalar ela poderia gerar não só duplas como trios, quartetos e etc... e talvez uma outra limitação que possa existir é em um ambiente de teste maior ela perder em perfomance devido a quantidade de iterações que existe no programa.
 ## Referências utilizadas
 ### MDN
 - [x] https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array
