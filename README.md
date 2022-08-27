@@ -4,9 +4,9 @@ Para realização do teste técnico escolhi desenvolver uma solução utilizando
 
 ## Executar a aplicação
 Para executar a aplicação você precisa do Visual Studio Code instalado
-[Visual Studio Code]("https://code.visualstudio.com/download")
+[Visual Studio Code](https://code.visualstudio.com/download)
 Após instalar o VS Code instale a extensão "Live Server" e execute o arquivo index.html com essa extensão
-[Instalar Live Server]("https://www.freecodecamp.org/portuguese/news/live-server-no-vs-code-como-atualizar-automaticamente-o-seu-navegador-com-essa-extensao-simples/")
+[Instalar Live Server](https://www.freecodecamp.org/portuguese/news/live-server-no-vs-code-como-atualizar-automaticamente-o-seu-navegador-com-essa-extensao-simples/)
 
 ## Solução
 
