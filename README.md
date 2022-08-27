@@ -3,7 +3,10 @@
 Para realização do teste técnico escolhi desenvolver uma solução utilizando javascript e trabalhar com arrays e seus métodos.
 
 ## Executar a aplicação
-Para executar o programa basta abrir o arquivo index.html em um navagador de sua preferência ou utilizar alguma extensão disponibilizada pela sua IDE de desenvolvimento, no caso do Visual Studio Code bata utilizar a extensão "Live Server"
+Para executar a aplicação você precisa do Visual Studio Code instalado
+[Visual Studio Code]("https://code.visualstudio.com/download")
+Após instalar o VS Code instale a extensão "Live Server" e execute o arquivo index.html com essa extensão
+[Instalar Live Server]("https://www.freecodecamp.org/portuguese/news/live-server-no-vs-code-como-atualizar-automaticamente-o-seu-navegador-com-essa-extensao-simples/")
 
 ## Solução
 
