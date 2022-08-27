@@ -1,16 +1,13 @@
 # AppleDeveloperAcademy-Challenge
 
-Para realização do teste técnico escolhi desenvolver uma solução utilizando javascript e trabalhar com arrays e seus métodos.
+Para a realização do teste técnico escolhi desenvolver uma solução utilizando JavaScript, trabalhando com arrays e seus métodos.
 
 ## Executar a aplicação
-Para executar a aplicação você precisa do Visual Studio Code instalado
-[Visual Studio Code](https://code.visualstudio.com/download)
-Após instalar o VS Code instale a extensão "Live Server" e execute o arquivo index.html com essa extensão
-[Instalar Live Server](https://www.freecodecamp.org/portuguese/news/live-server-no-vs-code-como-atualizar-automaticamente-o-seu-navegador-com-essa-extensao-simples/)
+Para executar a aplicação você precisa do [Visual Studio Code](https://code.visualstudio.com/download) instalado. Após instalar o VS Code, instale a extensão [Live Server](https://www.freecodecamp.org/portuguese/news/live-server-no-vs-code-como-atualizar-automaticamente-o-seu-navegador-com-essa-extensao-simples/) e execute o arquivo index.html.
 
 ## Solução
 
-Para solucionar o teste técnico primeiramente analisei os dados que foram fornecidos junto dos requisitos do programa chegando assim a um arquivo json contendo todos os dados que juguei necessário para o desenvolvimento.
+Para solucionar o teste técnico, primeiramente analisei os dados que foram fornecidos junto aos requisitos do programa e assim chegando a um arquivo JSON contendo todos os dados que julguei necessário para o desenvolvimento
 ```Json
 {
     "alunos": [
@@ -107,15 +104,15 @@ Para solucionar o teste técnico primeiramente analisei os dados que foram forne
     }
 }
 ```
-Para o desenvolvimento eu optei por percorrer o array de alunos e para cada aluno realizar as demais funções
+Para começar, optei por percorrer o array de alunos e para cada aluno realizar as seguintes funções
 ```JavaScript
 let students = db.alunos; // ["Laura", "Pedro", "João", ...]
 
 students.forEach(student => {
-    ...demais funções  
+    ...funções  
 }
 ```
-Agora tinha que definir com quem o aluno em questão podia trabalhar, mas antes eu precisava de um array para trabalhar tendo em vista que os ciclos no meu json é um objeto.A linha abaixo faz essa conversão
+O próximo passo é definir com quem o aluno em questão poderia trabalhar, mas antes era preciso um novo array tendo em vista que os ciclos do JSON é um objeto. A linha abaixo faz essa conversão:
 ```JavaScript
 let cycles = Object.values(db.ciclos).flat(); 
     // ciclos: {
@@ -127,7 +124,7 @@ let cycles = Object.values(db.ciclos).flat();
     //     ]
     // } -> [["Laura", "Pedro", "João", "Vincius"],...,["Natalia", "Felipe", "Eduardo"], ["Ana", "Wesley"]]
 ```
-Então para definir com quem o aluno em questão poderia trabalhar criei uma função que recebe 2 parâmetros o aluno e o array de ciclos então essa função percorre os ciclos e armazena em um outro array vazio os grupos cujo aquele aluno não faz parte
+Então, para definir com quem o aluno em questão poderia trabalhar foi criada uma função que recebe 2 parâmetros - o aluno e o array de ciclos -, essa função percorre os ciclos e armazena em um outro array vazio os grupos cujo aquele aluno não faz parte
 ```JavaScript
 function getPeopleWhoCanWork(student, cycles) {
     let allow = [];
@@ -142,7 +139,7 @@ function getPeopleWhoCanWork(student, cycles) {
     return allow
 }
 ```
-Após isso podia voltar para função principal e realizar os proximos passos com o seguinte codigo
+Retornando para a função principal, é armazenado em uma variável o valor retornado pela função acima
 ```JavaScript
 let cycles = Object.values(db.ciclos).flat();
 let students = db.alunos;
@@ -151,11 +148,11 @@ students.forEach(student => {
     let peopleWhoCanWork = getPeopleWhoCanWork(student, cycles)
 })
 ```
-Com a informação do aluno e com quem ele pode trabalhar comecei a desenvolver a funcionalidade de montar as duplas par isso eu iria precisar de um novo array vazio para armazenar as duplas.
+Com a informação do aluno e com quem ele pode trabalhar, comecei a desenvolver a funcionalidade de montar as duplas. Para isso, seria preciso um novo array vazio para armazenar as duplas:
 ```JavaScript
 let groups = [];
 ```
-Chegou a hora de juntar as duplas, realizei mais uma iteração dessa vez para checar se as pessoas com quem o aluno pode trabalhar já estão em um grupo e caso esteja remover eles da possibilidade de fazer a dupla
+Chegou a hora de juntar as duplas, realizei mais uma iteração dessa vez para checar se as pessoas com quem o aluno pode trabalhar já estão em um grupo e, caso esteja, remover eles da possibilidade de fazer a dupla
 ```JavaScript
 // Só vai fazer a checagem se já existir uma dupla no array de grupos
 if (groups.length > 0) {
@@ -164,7 +161,7 @@ if (groups.length > 0) {
 
     for (let i = 0; i < groupsConcatenatedRecursive.length; i++) {
 
-        // Checa se as pessoas que posso trabalhar já estão em um grupo
+        // Checa se as pessoas que podem trabalhar já estão em um grupo
         if(peopleWhoCanWork.includes(groupsConcatenatedRecursive[i])) {
 
             peopleWhoCanWork.splice(peopleWhoCanWork.indexOf(groupsConcatenatedRecursive[i]), 1) // remove das possibilidades quem já estiver em um grupo
@@ -172,14 +169,14 @@ if (groups.length > 0) {
     }
 }
 ```
-Agora eu só precisava inserir no array de grupos o aluno e uma pessoa escolhida aleatoriamente dentro das possibilidades e após isso remover a pessoa escolhida aleatoriamente do array de alunos
+Agora era preciso inserir no array de grupos o aluno e uma pessoa escolhida aleatoriamente dentro das possibilidades e, após isso, remover a pessoa escolhida aleatoriamente do array de alunos
 ```JavaScript
 let rn = Math.floor(Math.random() * peopleWhoCanWork.length); // gera um número aleatorio entre 0 e o tamanho máximo do array de possibilidades
     
-groups.push([student, peopleWhoCanWork[rn]]); // inseri o aluno e uma pessoa escolhida aleatoriamente do array de possibilidades
-students.splice(students.indexOf(peopleWhoCanWork[rn]), 1); // remove a pessoa escolhida aleatoriamente do array de alunos
+groups.push([student, peopleWhoCanWork[rn]]); // inserir o aluno e uma pessoa escolhida aleatoriamente do array de possibilidades
+students.splice(students.indexOf(peopleWhoCanWork[rn]), 1); // remover a pessoa escolhida aleatoriamente do array de alunos
 ```
-Para finalizar eu salvei os resultados no objeto de ciclos e mostrei o json final em uma página html
+Para finalizar, salvei os resultados no JSON e mostrei o JSON final na página HTML
 ```JavaScript
 db.ciclos.terceiro = groups
 let resultscreen = document.getElementById('result-screen');
@@ -239,7 +236,7 @@ function main() {
 
 main();
 ```
-Após desenvolver e testar o programa julgo ele uma boa solução com uma boa eficácia de eficácia pois além de solucionar o problema em questão ela é uma solução relativamente simples e perfomática dentro do espaço testado no entanto ela possui algumas limitações como no momento só estar gerando duplas então pensando em escalar ela poderia gerar não só duplas como trios, quartetos e etc... e talvez uma outra limitação que possa existir é em um ambiente de teste maior ela perder em perfomance devido a quantidade de iterações que existe no programa.
+Após desenvolver e testar o programa, julgo o mesmo uma boa solução e eficáz pois, além de solucionar o problema em questão, ele é uma solução relativamente simples e perfomática dentro do espaço testado. No entanto, o programa possui algumas limitações, no momento só está gerando duplas, então pensando em escalar ele poderia gerar não só duplas como trios, quartetos e etc... e, provavelmente, uma outra limitação que possa existir seria em um ambiente de teste maior, o programa perderia em perfomance devido a quantidade de iterações que existem.
 ## Referências utilizadas
 ### MDN
 - [x] https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array
