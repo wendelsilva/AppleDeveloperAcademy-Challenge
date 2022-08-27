@@ -182,7 +182,7 @@ db.ciclos.terceiro = groups
 let resultscreen = document.getElementById('result-screen');
 resultscreen.innerHTML = JSON.stringify(db);
 ```
-![screenshot](".https://github.com/wendelsilva/AppleDeveloperAcademy-Challenge/blob/main/screenshot.png?raw=true")
+![screenshot da tela de resultado](https://github.com/wendelsilva/AppleDeveloperAcademy-Challenge/blob/main/screenshot.png?raw=true)
 ### Código final
 ```
 function getPeopleWhoCanWork(student, cycles) {
